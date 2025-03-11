@@ -1,5 +1,6 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Patch } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { DesactiveUserDTO } from 'src/users/dto/desactive-user.dto';
 
 @Controller('auth')
 export class AuthController {

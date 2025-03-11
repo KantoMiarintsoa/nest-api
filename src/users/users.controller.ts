@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Post, Req, UseGuards, Put, Delete } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards, Put, Delete, Patch, Param, ParseIntPipe } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { RegisterUSerDto } from './dto/register.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { UpdateUserDTO } from './dto/update-user-dto';
+import { DesactiveUserDTO } from './dto/desactive-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -41,5 +42,14 @@ export class UsersController {
     ) {
         return await this.userService.deleteUser(req.user.id)
     }
+
+    @Patch('id:/desactive')
+    async desactiveUser(
+        @Param('id', ParseIntPipe) id: number,
+        @Body() data: DesactiveUserDTO
+    ) {
+        return await this.userService.desactiveUser(id, Boolean(data.isActive))
+    }
+
 
 }

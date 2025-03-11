@@ -125,4 +125,21 @@ export class UsersService {
 
         return user
     }
+
+    async desactiveUser(userId: number, isActive: boolean) {
+        const user = await this.prisma.user.findUnique({
+            where: { id: userId }
+        })
+
+        if (!user) {
+            throw new NotFoundException({
+                message: "user not found"
+            })
+        }
+
+        return await this.prisma.user.update({
+            where: { id: userId },
+            data: { isActive }
+        })
+    }
 }
